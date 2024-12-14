@@ -1017,6 +1017,20 @@ page404:
 
 
 #---------------------------
+# 照片墙
+# Photo Wall
+#---------------------------
+photo_wall:
+  enable: true
+  banner_img: /img/default.png
+  banner_img_height: 30
+  banner_mask_alpha: 0.3
+  photos_per_row: 2  # 每行照片数量
+  photo_padding: 5  # 照片间隔（单位：px）
+  border_radius: 5 # 圆角大小，单位为 px
+
+
+#---------------------------
 # 友链页
 # Links Page
 #---------------------------

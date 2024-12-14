@@ -38,6 +38,11 @@ page404:
   title: 'Page not found'
   subtitle: 'Page not found'
 
+photo_wall:
+  menu: 'Photo Wall'
+  title: 'Photo Wall'
+  subtitle: 'Photo Wall'
+
 post:
   toc: 'Table of Contents'
   prev_post: 'Previous'

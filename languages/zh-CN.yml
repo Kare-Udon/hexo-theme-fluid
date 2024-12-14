@@ -38,6 +38,11 @@ page404:
   title: '页面不存在'
   subtitle: '页面不存在'
 
+photo_wall:
+  menu: '照片墙'
+  title: '照片墙'
+  subtitle: '照片墙'
+
 post:
   toc: '目录'
   prev_post: '上一篇'

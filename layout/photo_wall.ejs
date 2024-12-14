@@ -1,0 +1,104 @@
+<%
+// filepath: /Users/udon/Documents/code/self/Node.js/Udon_Blog_Source_Code/themes/fluid/layout/photo_wall.ejs
+page.layout = "photo_wall"
+page.title = theme.photo_wall.title || __('photo_wall.title')
+page.subtitle = theme.photo_wall.subtitle || __('photo_wall.subtitle')
+page.banner_img = page.banner_img || theme.photo_wall.banner_img
+page.banner_img_height = page.banner_img_height || theme.photo_wall.banner_img_height
+page.banner_mask_alpha = page.banner_mask_alpha || theme.photo_wall.banner_mask_alpha
+const photosPerRow = theme.photo_wall.photos_per_row || 3;
+const photoItemWidth = (100 / photosPerRow) - 2; // 减去一些间距
+%>
+
+<div class="text-center">
+  <div class="photo-wall-info">
+    <div class="photo-wall-name"><%- theme.photo_wall.name %></div>
+    <div class="photo-wall-intro"><%- theme.photo_wall.introduce || theme.photo_wall.intro %></div>
+  </div>
+</div>
+
+<article class="photo-wall-content page-content mt-5">
+  <div class="markdown-body">
+    <div class="photo-wall" id="photo-wall">
+      <div class="photo-sizer"></div>
+      <div>
+        <% for (let j = 0; j < page.photoData.data.length; j++) { %>
+            <div class="photo-item">
+              <img src="<%= page.photoData.data[j].photo %>"
+                   alt="<%= page.photoData.data[j].year %>-<%= page.photoData.data[j].month %>" />
+            </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- 引入库文件 -->
+<script src="<%= url_for('/lib/imagesloaded.pkgd.min.js') %>"></script>
+<script src="<%= url_for('/lib/masonry.pkgd.min.js') %>"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var elem = document.querySelector('#photo-wall');
+    imagesLoaded(elem, function() {
+      var msnry = new Masonry(elem, {
+        itemSelector: '.photo-item',
+        columnWidth: '.photo-sizer',
+        percentPosition: true
+      });
+    });
+  });
+</script>
+
+<style>
+.photo-wall-content {
+  max-width: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.photo-wall {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.photo-sizer {
+  width: <%= photoItemWidth %>%;
+}
+
+.photo-collection-title {
+  font-size: 2rem;
+  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+  font-weight: bold;
+}
+
+.photo-item {
+  width: <%= photoItemWidth %>%;
+  padding: <%= theme.photo_wall.photo_padding || 0 %>px;
+  border-radius: <%= theme.photo_wall.border_radius || 0 %>px; /* 添加圆角 */
+}
+
+.photo-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid white; /* 添加白色边框 */
+  border-radius: <%= theme.photo_wall.border_radius || 0 %>px; /* 确保图片也有圆角 */
+}
+
+@media screen and (max-width: 768px) {
+  .photo-sizer,
+  .photo-item {
+    width: 48%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .photo-sizer,
+  .photo-item {
+    width: 100%;
+  }
+}
+</style>
+
+<%- partial('_partials/markdown-plugins') %>

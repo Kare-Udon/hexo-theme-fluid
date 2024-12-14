@@ -51,5 +51,8 @@ hexo.extend.generator.register('_links', function(locals) {
   }
 });
 
+// generate photo wall page
+hexo.extend.generator.register('photo_wall', require('./photo-wall-generator'));
+
 // generate index page
 hexo.extend.generator.register('index', require('./index-generator'));

@@ -18,6 +18,19 @@ var colorSchema = theme.dark_mode && theme.dark_mode.enable && theme.dark_mode.d
   <main>
     <% if(is_post() || page.layout === '404') { %>
       <%- body %>
+    <% } else if(page.layout === 'photo_wall') { %>
+      <div class="nopadding-x-md">
+        <div id="board"
+          <%- banner_img_height >= 100 && theme.banner && theme.banner.parallax ? 'style="margin-top: 0"' : '' %>>
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-12 m-auto">
+                <%- body %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     <% } else { %>
       <div class="container nopadding-x-md">
         <div id="board"
