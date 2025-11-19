@@ -42,6 +42,7 @@ photo_wall:
   menu: 'Photo Wall'
   title: 'Photo Wall'
   subtitle: 'Photo Wall'
+  empty: 'No photos yet, please check back later.'
 
 post:
   toc: 'Table of Contents'

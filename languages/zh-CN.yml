@@ -42,6 +42,7 @@ photo_wall:
   menu: '照片墙'
   title: '照片墙'
   subtitle: '照片墙'
+  empty: '暂无照片，敬请期待'
 
 post:
   toc: '目录'

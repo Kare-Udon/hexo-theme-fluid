@@ -8,6 +8,8 @@ page.banner_img_height = page.banner_img_height || theme.photo_wall.banner_img_h
 page.banner_mask_alpha = page.banner_mask_alpha || theme.photo_wall.banner_mask_alpha
 const photosPerRow = theme.photo_wall.photos_per_row || 3;
 const photoItemWidth = (100 / photosPerRow) - 2; // 减去一些间距
+const collections = page.photoData.collections || [];
+const formatMonth = month => month.toString().padStart(2, '0');
 %>
 
 <div class="text-center">
@@ -20,15 +22,25 @@ const photoItemWidth = (100 / photosPerRow) - 2; // 减去一些间距
 <article class="photo-wall-content page-content mt-5">
   <div class="markdown-body">
     <div class="photo-wall" id="photo-wall">
-      <div class="photo-sizer"></div>
-      <div>
-        <% for (let j = 0; j < page.photoData.data.length; j++) { %>
-            <div class="photo-item">
-              <img src="<%= page.photoData.data[j].photo %>"
-                   alt="<%= page.photoData.data[j].year %>-<%= page.photoData.data[j].month %>" />
-            </div>
-        <% } %>
-      </div>
+      <% if (!collections.length) { %>
+        <p class="photo-wall-empty"><%= __('photo_wall.empty') %></p>
+      <% } %>
+      <% collections.forEach(collection => { %>
+        <section class="photo-wall-month" data-year="<%= collection.year %>" data-month="<%= collection.month %>">
+          <div class="photo-collection-title">
+            <%= collection.year %> 年 <%= formatMonth(collection.month) %> 月
+          </div>
+          <div class="photo-wall-grid">
+            <div class="photo-sizer"></div>
+            <% collection.photos.forEach(photo => { %>
+              <div class="photo-item" data-year="<%= photo.year %>" data-month="<%= photo.month %>">
+                <img src="<%= photo.photo %>"
+                     alt="<%= photo.year %>-<%= photo.month %>" />
+              </div>
+            <% }) %>
+          </div>
+        </section>
+      <% }) %>
     </div>
   </div>
 </article>
@@ -38,12 +50,16 @@ const photoItemWidth = (100 / photosPerRow) - 2; // 减去一些间距
 <script src="<%= url_for('/lib/masonry.pkgd.min.js') %>"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    var elem = document.querySelector('#photo-wall');
-    imagesLoaded(elem, function() {
-      var msnry = new Masonry(elem, {
-        itemSelector: '.photo-item',
-        columnWidth: '.photo-sizer',
-        percentPosition: true
+    var grids = document.querySelectorAll('.photo-wall-grid');
+    if (!grids.length) return;
+
+    grids.forEach(function(grid) {
+      imagesLoaded(grid, function() {
+        new Masonry(grid, {
+          itemSelector: '.photo-item',
+          columnWidth: '.photo-sizer',
+          percentPosition: true
+        });
       });
     });
   });
@@ -57,8 +73,22 @@ const photoItemWidth = (100 / photosPerRow) - 2; // 减去一些间距
   margin: 0;
 }
 
+
 .photo-wall {
   margin: 0 auto;
+  width: 100%;
+}
+
+.photo-wall-month {
+  margin: 3rem auto 0;
+}
+
+.photo-wall-month:first-of-type {
+  margin-top: 0;
+}
+
+.photo-wall-grid {
+  margin-top: 1rem;
   width: 100%;
 }
 
@@ -70,6 +100,11 @@ const photoItemWidth = (100 / photosPerRow) - 2; // 减去一些间距
   font-size: 2rem;
   margin: 0.5rem 0.5rem 0.5rem 0.5rem;
   font-weight: bold;
+}
+
+.photo-wall-empty {
+  text-align: center;
+  color: var(--text-meta-color);
 }
 
 .photo-item {
