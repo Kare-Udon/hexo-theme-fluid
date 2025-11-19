@@ -1,0 +1,110 @@
+<%
+const defaultConfig = theme.link_direction || {};
+const layoutConfig = Object.assign({}, defaultConfig, page.link_direction || {});
+const profile = Object.assign({}, defaultConfig.profile || {}, layoutConfig.profile || {});
+const pageLinks = Array.isArray(page.links) && page.links.length ? page.links : (layoutConfig.links || []);
+const icons = Array.isArray(profile.icons) ? profile.icons : [];
+const extraHtml = layoutConfig.extra_html;
+page.layout = 'link_direction';
+page.title = page.title || layoutConfig.title || profile.name || '';
+page.subtitle = '';
+page.banner_img = page.banner_img || layoutConfig.banner_img || theme.page.banner_img;
+page.banner_img_height = page.banner_img_height || layoutConfig.banner_img_height || theme.page.banner_img_height;
+page.banner_mask_alpha = page.banner_mask_alpha || layoutConfig.banner_mask_alpha || theme.page.banner_mask_alpha;
+if (typeof page.comments === 'undefined') {
+  page.comments = layoutConfig.comments && layoutConfig.comments.enable;
+}
+if (page.comments && layoutConfig.comments && layoutConfig.comments.type) {
+  page.comment = layoutConfig.comments.type;
+}
+%>
+
+<section class="link-direction">
+  <div class="link-direction-profile text-center">
+    <% if (profile.avatar) { %>
+      <div class="link-direction-avatar">
+        <img src="<%= url_for(profile.avatar) %>" alt="<%= profile.name || page.title || '' %>">
+      </div>
+    <% } %>
+
+    <% if (profile.name || page.title) { %>
+      <div class="link-direction-name"><%- profile.name || page.title %></div>
+    <% } %>
+
+    <% if (profile.message || layoutConfig.message) { %>
+      <p class="link-direction-message"><%- profile.message || layoutConfig.message %></p>
+    <% } %>
+
+    <% if (icons.length) { %>
+      <div class="link-direction-icons">
+        <% icons.forEach((icon) => { %>
+          <% if (!icon || (!icon.class && !icon.qrcode)) return %>
+          <% const iconClass = (icon.class || '').includes('iconfont') ? icon.class : `iconfont ${icon.class || ''}` %>
+          <% const iconTitle = icon.title || icon.name || '' %>
+          <% if (icon.qrcode) { %>
+            <span class="link-direction-icon qr-trigger" aria-label="<%= iconTitle %>">
+              <i class="<%= iconClass.trim() %>"></i>
+              <img class="qr-img" src="<%= url_for(icon.qrcode) %>" alt="<%= iconTitle %>">
+            </span>
+          <% } else { %>
+            <a class="link-direction-icon" href="<%= url_for(icon.link || '#') %>" target="_blank" rel="<%= icon.rel || 'noopener noreferrer' %>" aria-label="<%= iconTitle %>">
+              <i class="<%= iconClass.trim() %>"></i>
+            </a>
+          <% } %>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+
+  <% if (pageLinks.length) { %>
+    <div class="link-direction-links" role="navigation" aria-label="link-collection">
+      <% pageLinks.forEach((each, index) => { %>
+        <% if (!each || !each.url) return %>
+        <% const label = each.label || each.title || each.name || each.url %>
+        <% const desc = each.desc || each.description || '' %>
+        <% const iconClass = (each.icon || each.class || '').trim() %>
+        <% const resolvedIcon = iconClass ? (iconClass.includes('iconfont') ? iconClass : `iconfont ${iconClass}`) : '' %>
+        <% const styleParts = [] %>
+        <% if (each.bg_color) { styleParts.push(`background-color: ${each.bg_color}`) } %>
+        <% if (each.text_color) { styleParts.push(`color: ${each.text_color}`) } %>
+        <% const inlineStyle = styleParts.length ? ` style="${styleParts.join('; ')}"` : '' %>
+        <% const rel = each.rel || 'noopener noreferrer' %>
+        <% const outline = each.style === 'outline' %>
+        <a href="<%= url_for(each.url) %>" class="link-direction-item<%= outline ? ' link-direction-item--outline' : '' %>" target="_blank" rel="<%= rel %>" <%- inlineStyle %>>
+          <div class="link-direction-item-main">
+            <% if (resolvedIcon) { %>
+              <i class="link-direction-item-icon <%= resolvedIcon %>"></i>
+            <% } else if (each.image) { %>
+              <span class="link-direction-item-icon link-direction-item-icon--image">
+                <img src="<%= url_for(each.image) %>" alt="<%= label %>">
+              </span>
+            <% } %>
+            <div class="link-direction-item-text">
+              <div class="link-direction-item-label"><%- label %></div>
+              <% if (desc) { %>
+                <p class="link-direction-item-desc"><%- desc %></p>
+              <% } %>
+            </div>
+          </div>
+          <span class="link-direction-item-arrow">
+            <i class="iconfont icon-arrowright"></i>
+          </span>
+        </a>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <p class="link-direction-empty text-center"><%- layoutConfig.empty_text || __('links.subtitle') %></p>
+  <% } %>
+
+  <% if (page.content && page.content.trim()) { %>
+    <div class="markdown-body link-direction-extra">
+      <%- page.content %>
+    </div>
+  <% } else if (extraHtml) { %>
+    <div class="link-direction-extra">
+      <%- extraHtml %>
+    </div>
+  <% } %>
+
+  <%- inject_point('pageComments') %>
+</section>

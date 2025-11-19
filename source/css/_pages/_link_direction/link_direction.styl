@@ -1,0 +1,128 @@
+.link-direction
+  display flex
+  flex-direction column
+  align-items center
+  gap 2rem
+
+.link-direction-profile
+  display flex
+  flex-direction column
+  align-items center
+  gap 0.75rem
+  margin-bottom 1rem
+
+.link-direction-avatar
+  width 6rem
+  height 6rem
+  border-radius 50%
+  overflow hidden
+  box-shadow 0 10px 30px rgba(15, 23, 42, 0.15)
+
+  img
+    width 100%
+    height 100%
+    object-fit cover
+
+.link-direction-name
+  font-size 1.75rem
+  font-weight 700
+  color var(--text-color)
+
+.link-direction-message
+  color var(--sec-text-color)
+  max-width 32rem
+  margin-bottom 0
+  line-height 1.5
+
+.link-direction-icons
+  display flex
+  flex-wrap wrap
+  gap 0.75rem
+  justify-content center
+
+.link-direction-icon
+  color var(--text-color)
+  font-size 1.35rem
+
+.link-direction-links
+  width 100%
+  max-width 40rem
+  display flex
+  flex-direction column
+  gap 1rem
+
+.link-direction-item
+  display flex
+  justify-content space-between
+  align-items center
+  padding 0.9rem 1.2rem
+  border-radius 999px
+  background-color var(--board-color)
+  border 1px solid rgba(0, 0, 0, 0.04)
+  text-decoration none
+  color var(--text-color)
+  box-shadow 0 10px 30px rgba(15, 23, 42, 0.08)
+  transition all 0.25s ease
+
+  &:hover
+    transform translateY(-2px)
+    box-shadow 0 20px 45px rgba(15, 23, 42, 0.12)
+
+.link-direction-item--outline
+  background-color transparent
+  box-shadow none
+
+.link-direction-item-main
+  display flex
+  align-items center
+  gap 0.75rem
+  flex 1
+
+.link-direction-item-icon
+  font-size 1.25rem
+  color inherit
+
+.link-direction-item-icon--image
+  width 2rem
+  height 2rem
+  border-radius 50%
+  overflow hidden
+
+  img
+    width 100%
+    height 100%
+    object-fit cover
+
+.link-direction-item-text
+  display flex
+  flex-direction column
+  gap 0.15rem
+
+.link-direction-item-label
+  font-size 1rem
+  font-weight 600
+
+.link-direction-item-desc
+  font-size 0.85rem
+  color var(--sec-text-color)
+  margin-bottom 0
+
+.link-direction-item-arrow
+  margin-left 1rem
+  color var(--sec-text-color)
+
+.link-direction-empty
+  color var(--sec-text-color)
+
+.link-direction-extra
+  width 100%
+  max-width 42rem
+
+@media (max-width 576px)
+  .link-direction-avatar
+    width 4.5rem
+    height 4.5rem
+
+  .link-direction-item
+    border-radius 1rem
+

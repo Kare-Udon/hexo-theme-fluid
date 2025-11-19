@@ -371,6 +371,7 @@ navbar:
     - { key: "archive", link: "/archives/", icon: "iconfont icon-archive-fill" }
     - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
+    #- { key: "link_direction", link: "/link-direction/", icon: "iconfont icon-apps-fill" }
     - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
     #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
 
@@ -1033,6 +1034,43 @@ photo_wall:
   photos_per_row: 2  # 每行照片数量
   photo_padding: 5  # 照片间隔（单位：px）
   border_radius: 5 # 圆角大小，单位为 px
+
+#---------------------------
+# 跳转页
+# Link Direction Page
+#---------------------------
+link_direction:
+  enable: false
+  title: "Links"
+  banner_img: /img/default.png
+  banner_img_height: 45
+  banner_mask_alpha: 0.35
+  profile:
+    avatar: /img/avatar.png
+    name: "Fluid"
+    message: "One link page for all platforms"
+    icons:
+      - { class: "iconfont icon-github-fill", link: "https://github.com/fluid-dev/hexo-theme-fluid" }
+  links:
+    - {
+      title: "GitHub",
+      url: "https://github.com/fluid-dev/hexo-theme-fluid",
+      icon: "icon-github-fill",
+      desc: "Theme repository",
+      bg_color: "#24292e",
+      text_color: "#ffffff"
+    }
+    - {
+      title: "Docs",
+      url: "https://hexo.fluid-dev.com/docs/",
+      icon: "icon-bookmark-fill",
+      desc: "Read the guide",
+      style: "outline"
+    }
+  extra_html:
+  comments:
+    enable: false
+    type: disqus
 
 
 #---------------------------
