@@ -1049,8 +1049,6 @@ link_direction:
     avatar: /img/avatar.png
     name: "Fluid"
     message: "One link page for all platforms"
-    icons:
-      - { class: "iconfont icon-github-fill", link: "https://github.com/fluid-dev/hexo-theme-fluid" }
   links:
     - {
       title: "GitHub",
@@ -1067,11 +1065,6 @@ link_direction:
       desc: "Read the guide",
       style: "outline"
     }
-  extra_html:
-  comments:
-    enable: false
-    type: disqus
-
 
 #---------------------------
 # 友链页

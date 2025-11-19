@@ -79,14 +79,26 @@
   flex 1
 
 .link-direction-item-icon
-  font-size 1.25rem
+  display inline-flex
+  align-items center
+  justify-content center
+  width 2.5rem
+  height 2.5rem
+  border-radius 50%
+  font-size 1.4rem
+  line-height 1
   color inherit
+  flex-shrink 0
 
 .link-direction-item-icon--image
-  width 2rem
-  height 2rem
+  display flex
+  align-items center
+  justify-content center
+  width 2.5rem
+  height 2.5rem
   border-radius 50%
   overflow hidden
+  flex-shrink 0
 
   img
     width 100%
@@ -125,4 +137,3 @@
 
   .link-direction-item
     border-radius 1rem
-
